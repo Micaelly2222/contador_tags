@@ -81,19 +81,3 @@ def get_page_info(page_name):
     return page_info
 
 
-# função para contar as tags em uma página
-def count_tags(page_name):
-    session = Session()
-
-    try:
-        # obtem a página pelo nome
-        page = session.query(Page).filter_by(name=page_name).first()
-
-        if page:
-            # obtem a contagem de tags da página
-            tag_counts = session.query(Tag.tag, CountTag.count).join(CountTag).filter(CountTag.page_id == page.id).all()
-            return {tag: count for tag, count in tag_counts}
-
-        return {}
-    finally:
-        session.close()
