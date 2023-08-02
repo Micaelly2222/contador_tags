@@ -14,7 +14,7 @@ Para executar a aplicação, siga os passos abaixo:
 1. Clone o repositório para a sua máquina local:
 ```git clone https://github.com/Micaelly2222/contador_tags.git```
 2. Acesse o diretório do projeto:
-```cd contador-tags```
+```cd contador_tags```
 3. Instale as dependências do frontend e backend:
 ``` cd frontend```
 ```npm install```
@@ -48,3 +48,8 @@ Caso deseje armazenar a contagem de tags em um banco de dados, clique no botão 
   - `index.html`: Página HTML principal que será carregada pelo navegador.
 
 - `tags_database.db`: Banco de dados SQLite que armazena as informações sobre as páginas e as contagens de tags.
+
+
+## ![image](https://github.com/Micaelly2222/contador_tags/assets/96353855/c5d56de9-2623-4585-af97-4cde41f0403b)
+
+
