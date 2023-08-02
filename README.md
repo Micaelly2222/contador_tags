@@ -34,6 +34,31 @@ Ao acessar a aplicação no localhost, você verá um editor de código HTML. In
 
 Caso deseje armazenar a contagem de tags em um banco de dados, clique no botão "Enviar HTML". O servidor irá receber o código HTML novamente, realizar a contagem de tags e inserir os dados no banco de dados SQLite.
 
+## Exemplo
+Considere o código HTML abaixo.
+
+    <html>
+        <head>
+            <title>Teste prático</title>
+        </head>
+        <body>
+            <h1>Olá</h1>
+            <p>Teste 1</p>
+            <p>Teste 2</p>
+            <p>Teste 3</p>
+        </body>
+    </html>  
+### Resultado:
+Contagem de Tags:
+{
+    "html": 1,
+    "head": 1,
+    "title": 1,
+    "body": 1,
+    "h1": 1,
+    "p": 3
+}
+
 ## Estrutura do Projeto
 
 - `main.py`: Contém o código principal da API FastAPI, definindo as rotas `/search_tags` e `/upload_html`.
