@@ -454,5 +454,6 @@ sketch
 # Ignore all local history of files
 .history
 .ionide
+tags_database.db
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,visualstudiocode,react,node

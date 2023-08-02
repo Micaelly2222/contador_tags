@@ -1,12 +1,8 @@
+from camada_banco import get_session, Base
+from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, exists
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
-
-# conexão com o banco de dados usando o SQLAlchemy
-engine = create_engine('sqlite:///tags_database.db')
-Base = declarative_base()
-Session = sessionmaker(bind=engine)
-
 
 # classes para representar as tabelas do banco de dados
 class Page(Base):
@@ -15,12 +11,10 @@ class Page(Base):
     name = Column(String, nullable=False)
     tags = relationship('Tag', secondary='count_tags')
 
-
 class Tag(Base):
     __tablename__ = 'tags'
     id = Column(Integer, primary_key=True, autoincrement=True)
     tag = Column(String, nullable=False)
-
 
 class CountTag(Base):
     __tablename__ = 'count_tags'
@@ -29,14 +23,9 @@ class CountTag(Base):
     tag_id = Column(Integer, ForeignKey('tags.id'), nullable=False)
     count = Column(Integer, nullable=False)
 
-
-# criar as tabelas no banco de dados
-Base.metadata.create_all(engine)
-
-
 # função para inserir os dados da página no banco
 def insert_page_data(page_name, tags_count):
-    session = Session()
+    session = get_session()
 
     try:
         with session.begin():
@@ -56,28 +45,32 @@ def insert_page_data(page_name, tags_count):
                     tag_obj = Tag(tag=tag)
                     session.add(tag_obj)
 
-                # criar uma nova instância da classe CountTag e associa ela com a página e a tag
-                count_tag = CountTag(page_id=page.id, tag_id=tag_obj.id, count=count)
-                session.add(count_tag)
+                # verifica se já existe uma instância da classe CountTag com os mesmos page_id e tag_id
+                count_tag = session.query(CountTag).filter_by(page_id=page.id, tag_id=tag_obj.id).first()
+                if count_tag:
+                    # se já existe, atualiza o valor de count
+                    count_tag.count = count
+                else:
+                    # senão, cria uma nova instância da classe CountTag e associa ela com a página e a tag
+                    count_tag = CountTag(page_id=page.id, tag_id=tag_obj.id, count=count)
+                    session.add(count_tag)
 
         # commit da transação após a inserção dos dados
         session.commit()
     except Exception as e:
         # em caso de erro, fazer o rollback da transação
         session.rollback()
-        raise e
+        raise InsertError("Erro ao inserir dados no banco de dados.") from e
     finally:
         session.close()
 
 # função para obter as informações de uma página pelo nome, usando join
 def get_page_info(page_name):
-    session = Session()
+    session = get_session()
 
-    # obtendo as informações da página e tags usando join 
+    # obtendo as informações da página e tags usando join
     page_info = session.query(Tag.tag, CountTag.count).join(Page).join(CountTag).filter(Page.name == page_name).all()
 
     session.close()
 
     return page_info
-
-
