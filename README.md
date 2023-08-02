@@ -39,14 +39,14 @@ Caso deseje armazenar a contagem de tags em um banco de dados, clique no botão 
 - `main.py`: Contém o código principal da API FastAPI, definindo as rotas `/search_tags` e `/upload_html`.
 
 - `data_access.py`: Realiza o acesso ao banco de dados SQLite usando o SQLAlchemy. Define as classes Page, Tag e CountTag para representar as tabelas do banco de dados e possui funções para inserir e obter dados do banco.
-- 
-  - `App.js`: Componente principal da aplicação React, contendo o editor de código HTML e as funções para realizar as chamadas à API backend.
 
-  - `index.js`: Arquivo de entrada da aplicação React.
-
-  - `App.css`: Arquivo de estilização para o componente App.
+- `App.js`: Componente principal da aplicação React, contendo o editor de código HTML e as funções para realizar as chamadas à API backend.
  
-  - `index.html`: Página HTML principal que será carregada pelo navegador.
+- `index.js`: Arquivo de entrada da aplicação React.
+
+- `App.css`: Arquivo de estilização para o componente App.
+ 
+- `index.html`: Página HTML principal que será carregada pelo navegador.
 
 - `tags_database.db`: Banco de dados SQLite que armazena as informações sobre as páginas e as contagens de tags.
 
