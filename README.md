@@ -12,7 +12,7 @@ e Node.js (para o frontend React)
 Para executar a aplicação, siga os passos abaixo:
 
 1. Clone o repositório para a sua máquina local:
-```git clone https://github.com/Micaelly2222/contador-tags.git```
+```git clone https://github.com/Micaelly2222/contador_tags.git```
 2. Acesse o diretório do projeto:
 ```cd contador-tags```
 3. Instale as dependências do frontend e backend:
