@@ -15,13 +15,14 @@ Para executar a aplicação, siga os passos abaixo:
 ```git clone https://github.com/Micaelly2222/contador_tags.git```
 2. Acesse o diretório do projeto:
 ```cd contador_tags```
-3. Instale as dependências do frontend e backend:
+3. Instale as dependências do frontend:
 ``` cd frontend```
 ```npm install```
 ```pip install -r requirements.txt```
 4. Inicie o servidor FastAPI:
+``` cd backend```
 ```uvicorn main:app --reload```
-5. Em outro terminal, inicie o servidor de desenvolvimento do React:
+6. Em outro terminal, inicie o servidor de desenvolvimento do React:
 ```cd frontend```
 ```npm start```
 
