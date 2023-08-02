@@ -74,7 +74,27 @@ Contagem de Tags:
 - `index.html`: Página HTML principal que será carregada pelo navegador.
 
 - `tags_database.db`: Banco de dados SQLite que armazena as informações sobre as páginas e as contagens de tags.
+  
+  
 
+##  Diagrama de Entidade Relacionamento 
+É uma representação gráfica do banco de dados utilizado na aplicação. Ele mostra as tabelas, seus atributos (colunas) e os relacionamentos entre as entidades.
+O DER do projeto "Contador de Tags" possui as seguintes entidades:
+#### Page : Representa uma página HTML e possui os atributos:
+- `id`: Chave primária da tabela.
+- `name`: Nome da página.
+#### Tag: Representa uma tag HTML e possui os atributos:
+- `id`: Chave primária da tabela.
+- `tag`: Nome da tag HTML.
+#### CountTag : Representa a contagem de uma tag em uma página específica e possui os atributos:
+- `id`: Chave primária da tabela.
+- `page_id`: Chave estrangeira referenciando a tabela "Page", relacionando a contagem à página específica.
+- `tag_id`: Chave estrangeira referenciando a tabela "Tag", relacionando a contagem à tag específica.
+- `count`: Quantidade de vezes que a tag aparece na página.
+
+As relações entre as entidades são definidas pelas chaves estrangeiras "page_id" e "tag_id". A tabela `CountTag` atua como uma tabela associativa que armazena a contagem de tags em cada página.
+
+## Aplicação:
 
 ## ![image](https://github.com/Micaelly2222/contador_tags/assets/96353855/c5d56de9-2623-4585-af97-4cde41f0403b)
 
