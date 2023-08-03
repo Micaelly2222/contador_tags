@@ -54,6 +54,6 @@ def insert_page_data(page_name, tags_count):
 def get_page_info(session: Session, page_name: str):
     with get_db() as session:
         # Obtendo as informações da página e tags usando join
-        page_info = session.query(Tag.tag, CountTag.count).join(Page).join(CountTag).filter(Page.name == page_name).all()
-
-    return page_info
+        page_info = session.query(Tag.tag, CountTag.count).join(Page).join(CountTag).filter(
+            Page.name == page_name).all()
+        return page_info
