@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from models.html_request import HTMLRequest
 from models.tags_count import TagsCount
 from models.page_id import PageID
@@ -7,6 +8,20 @@ from controller import count_tags, upload_html, get_page_info
 from camada_banco import get_db
 
 app = FastAPI()
+
+# Configurar o CORS
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Rota para subir um novo HTML e contar as tags (POST)
 @app.post("/upload_html", response_model=TagsCount)
