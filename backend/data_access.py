@@ -51,12 +51,7 @@ def insert_page_data(page_name: str, tags_count: Dict[str, int]):
 
 # Função para obter as informações de uma página pelo nome, usando join
 def get_page_info(session: Session, page_name: str):
-    # usando alias para evitar o erro de coluna ambígua
-    PageAlias = aliased(Page)
-    CountTagAlias = aliased(CountTag)
-
-    # Obtendo as informações da página e tags usando join
-    page_info = session.query(Tag.tag, CountTagAlias.count).join(PageAlias).join(CountTagAlias).filter(
-        PageAlias.name == page_name).all()
-
+    # Usando alias para renomear o nome da coluna "count" para "tag_count"
+    page_info = session.query(Tag.tag, CountTag.count.label("tag_count")).join(Page).join(CountTag).filter(
+        Page.name == page_name).all()
     return page_info
