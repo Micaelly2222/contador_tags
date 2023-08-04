@@ -1,34 +1,42 @@
-import re
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Dict
-from data_access import insert_page_data, get_page_info
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from models.html_request import HTMLRequest
+from models.tags_count import TagsCount
+from models.page_id import PageID
+from models.page_info import PageInfo
+from controller import count_tags, upload_html, get_page_info
+from camada_banco import get_db
 
 app = FastAPI()
 
-# classe para receber o código HTML da requisição
-class HTMLRequest(BaseModel):
-    html_code: str
+# Configurar o CORS
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
 
-# funcao para processar o código HTML e contar as tags
-def count_tags(html_code: str) -> Dict[str, int]:
-    tags_count = {}
-    tags = re.findall(r'<(\w+)', html_code)
-    for tag in tags:
-        tags_count[tag] = tags_count.get(tag, 0) + 1
-    return tags_count
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# rota para pesquisar as tags de um determinado HTML
-@app.post("/search_tags")
-async def search_tags(request: HTMLRequest):
+# Rota para subir um novo HTML e contar as tags (POST)
+@app.post("/upload_html", response_model=TagsCount)
+async def upload_html_endpoint(request: HTMLRequest):
+    html_name = request.html_name
     html_code = request.html_code
-    tags_count = count_tags(html_code)
-    return {"tags_count": tags_count}
+    with get_db() as session:
+        page_id = upload_html(session, html_name, html_code)
+        tags_count = count_tags(session, html_code)
+        return {"page_id": page_id, "tags_count": tags_count}
 
-# rota para subir um novo HTML e contar as tags
-@app.post("/upload_html")
-async def upload_html(request: HTMLRequest):
-    html_code = request.html_code
-    tags_count = count_tags(html_code)
-    page_id = insert_page_data(html_code, tags_count)
-    return {"message": "Página e tags inseridas com sucesso!", "page_id": page_id}
+
+# Rota para obter as informações de uma página pelo nome (GET)
+@app.get("/get_page_info/{page_name}", response_model=PageInfo)
+async def get_page_info_endpoint(page_name: str):
+    with get_db() as session:
+        page_info = get_page_info(session, page_name)
+        return {"page_info": page_info}
