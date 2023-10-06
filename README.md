@@ -1,13 +1,17 @@
 # Contador de Tags 
 
+## Visão Geral
+
 O Contador de Tags é uma aplicação web desenvolvida utilizando as tecnologias FastAPI, SQlite, SQLAlchemy e React. Ela permite que o usuário insira um código HTML e conte a quantidade de tags HTML presentes nele. Além disso, a aplicação possui a funcionalidade de enviar o código HTML para o servidor e armazenar a contagem de tags em um banco de dados SQLite.
 
+## Requisitos do Sistema
+
+Certifique-se de ter as seguintes dependências instaladas em sua máquina:
+
+- Python (para o servidor FastAPI)
+- Node.js (para o frontend React)
+
 ## Instalação e Execução
-
-Antes de executar a aplicação, certifique-se de ter as seguintes dependências instaladas em sua máquina:
-
-Python (para o servidor FastAPI)
-e Node.js (para o frontend React)
 
 Para executar a aplicação, siga os passos abaixo:
 
