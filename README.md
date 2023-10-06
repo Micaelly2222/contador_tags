@@ -8,8 +8,8 @@ O Contador de Tags é uma aplicação web desenvolvida utilizando as tecnologias
 
 Certifique-se de ter as seguintes dependências instaladas em sua máquina:
 
-- Python (para o servidor FastAPI)
-- Node.js (para o frontend React)
+- Python (versão 3.6 ou superior), para o servidor FastAPI
+- Node.js, para o frontend React
 
 ## Instalação e Execução
 
